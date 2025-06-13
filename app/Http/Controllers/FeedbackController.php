@@ -7,23 +7,25 @@ use App\Models\Feedback;
 
 class FeedbackController extends Controller
 {
-    public function showForm()
+    public function create()
     {
-        return view('feedback.form');
+        // Fetch all feedbacks from the database, newest first
+        $feedbacks = Feedback::latest()->get();
+        // Pass the $feedbacks to the view
+        return view('feedback', compact('feedbacks'));
     }
 
-    public function submitForm(Request $request)
+
+    public function store(Request $request)
     {
-        $request->validate([
-            'message' => 'required|string',
-            'username' => 'nullable|string|max:255',
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'message' => 'required'
         ]);
 
-        Feedback::create([
-            'username' => $request->username ?: 'Anonymous',
-            'message' => $request->message,
-        ]);
+        Feedback::create($validated);
 
-        return redirect()->back()->with('success', 'Thank you for your feedback!');
+        return redirect('/feedback')->with('success', 'Thank you for your feedback!');
     }
 }
