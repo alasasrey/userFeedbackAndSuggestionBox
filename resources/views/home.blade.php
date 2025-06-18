@@ -667,7 +667,7 @@
                         @auth
                             @if (auth()->user()->is_admin)
                             <li>
-                                <a href="{{ route('admin.feedback') }}">Admin Dashboard</a>
+                                <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                             </li>    
                             @endif
                         @endauth

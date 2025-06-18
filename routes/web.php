@@ -28,10 +28,12 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware([AdminMiddleware::class])->group(function () {
-    Route::get('/admin', [AdminController::class, 'dashboard']);
+    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware([
+    \Illuminate\Auth\Middleware\Authenticate::class,
+    AdminMiddleware::class,
+])->group(function () {
     Route::get('/admin/feedback', [AdminController::class, 'feedback'])->name('admin.feedback');
 });
-
