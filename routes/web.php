@@ -36,4 +36,7 @@ Route::middleware([
     AdminMiddleware::class,
 ])->group(function () {
     Route::get('/admin/feedback', [AdminController::class, 'feedback'])->name('admin.feedback');
+    Route::get('/admin/feedback/{id}/edit', [AdminController::class, 'editFeedback'])->name('admin.feedback.edit');
+    Route::put('/admin/feedback/{id}', [AdminController::class, 'updateFeedback'])->name('admin.feedback.update');
+    Route::delete('/admin/feedback/{id}', [AdminController::class, 'deleteFeedback'])->name('admin.feedback.delete');
 });
