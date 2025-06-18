@@ -25,4 +25,12 @@ class AuthController extends Controller
         Auth::login($user);
         return redirect('/home');
     }
+
+    public function login(Request $request)
+    {
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return redirect('/home');
+        }
+        return back()->withErrors(['email' => 'Invalid credentials']);
+    }
 }
