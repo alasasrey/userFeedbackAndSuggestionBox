@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FeedbackController;
 use App\Models\Feedback;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('login');
@@ -26,5 +27,11 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::middleware([AdminMiddleware::class])->group(function () {
+    Route::get('/admin', [AdminController::class, 'dashboard']);
+});
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/feedback', [AdminController::class, 'feedback'])->name('admin.feedback');
+});
 
