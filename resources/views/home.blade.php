@@ -1,3 +1,10 @@
+@auth
+    @if (auth()->user()->is_admin)
+        <a href="{{ route('admin.feedback') }}">Admin Dashboard</a>
+    @endif
+@endauth
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
