@@ -405,27 +405,6 @@
                         <li><a href="#contact">Contact</a></li>
                         <li><a href="/login">Login</a></li>
                         <li><a href="/signup">Sign Up</a></li>
-                        <li>
-                            {{-- Logout Button --}}
-                            <form
-                                method="POST"
-                                action="/logout"
-                                style="display: inline"
-                            >
-                                @csrf
-                                <button
-                                    type="submit"
-                                    style="
-                                        background: none;
-                                        border: none;
-                                        color: blue;
-                                        cursor: pointer;
-                                    "
-                                >
-                                    Logout
-                                </button>
-                            </form>
-                        </li>
                     </ul>
                 </nav>
             </div>
