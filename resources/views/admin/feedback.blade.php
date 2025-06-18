@@ -16,8 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($feedbacks as $fb)
-                @foreach ($feedbacks as $feedback)
+            @foreach ($feedbacks as $feedback)
                 <tr>
                     <td>{{ $feedback->name }}</td>
                     <td>{{ $feedback->email }}</td>
@@ -39,10 +38,6 @@
                     </td>
                 </tr>
             @endforeach
-
-            @empty
-                <tr><td colspan="7">No feedback found.</td></tr>
-            @endforelse
         </tbody>
     </table>
 </div>

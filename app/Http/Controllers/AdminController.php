@@ -23,7 +23,7 @@ class AdminController extends Controller
     public function editFeedback($id)
     {
         $feedback = Feedback::findOrFail($id);
-        return view('admin.edit-feedback', compact('feedback'));
+        return view('admin.editFeedback', compact('feedback'));
     }
 
     // Handle update
