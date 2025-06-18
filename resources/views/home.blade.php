@@ -685,6 +685,8 @@
 
         <main class="container">
             <section id="home" class="hero">
+                    {{-- Show user name --}}
+                <h3>Welcome, {{ Auth::user()->name ?? 'Guest' }}</h3>
                 <h1>Premium Laundry Service</h1>
                 <p>
                     Professional cleaning with doorstep pickup & delivery. Your
