@@ -17,7 +17,8 @@ Route::post('/signup', [AuthController::class, 'register']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
-        return view('home');
+        $feedbacks = Feedback::latest()->get(); 
+        return view('home', compact('feedbacks'));
     });
     Route::post('/feedback', [FeedbackController::class, 'store']);
     Route::post('/logout', [AuthController::class, 'logout']);
