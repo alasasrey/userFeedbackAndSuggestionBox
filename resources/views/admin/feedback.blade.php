@@ -17,15 +17,29 @@
         </thead>
         <tbody>
             @forelse ($feedbacks as $fb)
+                @foreach ($feedbacks as $feedback)
                 <tr>
-                    <td>{{ $fb->name }}</td>
-                    <td>{{ $fb->email }}</td>
-                    <td>{{ $fb->service }}</td>
-                    <td>{{ $fb->rating }} ⭐</td>
-                    <td>{{ $fb->feedback }}</td>
-                    <td>{{ $fb->suggestions ?? '—' }}</td>
-                    <td>{{ $fb->created_at->format('Y-m-d H:i') }}</td>
+                    <td>{{ $feedback->name }}</td>
+                    <td>{{ $feedback->email }}</td>
+                    <td>{{ $feedback->service }}</td>
+                    <td>{{ $feedback->rating }}</td>
+                    <td>{{ $feedback->feedback }}</td>
+                    <td>{{ $feedback->suggestions }}</td>
+                    <td>
+                        <a href="{{ route('admin.feedback.edit', $feedback->id) }}" class="btn btn-primary">Edit</a>
+
+                        <form action="{{ route('admin.feedback.delete', $feedback->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Are you sure you want to delete this feedback?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
                 </tr>
+            @endforeach
+
             @empty
                 <tr><td colspan="7">No feedback found.</td></tr>
             @endforelse
