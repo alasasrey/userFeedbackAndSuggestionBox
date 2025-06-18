@@ -383,8 +383,6 @@
                     font-size: 2rem;
                 }
             }
-
-
         </style>
     </head>
     <body>
@@ -393,21 +391,41 @@
                 <nav class="nav">
                     <a href="#" class="logo">🧺 Fresh Clean</a>
                     <ul class="nav-links">
-                        {{-- change the link if you are almost finish --}}
-                        <li><a href="/">Home</a></li>
-                        {{-- change the link if you are almost finish --}}
-                        <li><a href="/#services">Services</a></li>
-                        {{-- change the link if you are almost finish --}}
-                        <li><a href="/#pricing">Pricing</a></li>
-                        {{-- change the link if you are almost finish --}}
-                        <li><a href="/#feedback">Feedback</a></li>
-
+                        @auth @if (auth()->user()->is_admin)
+                        <li>
+                            <a href="{{ route('admin.dashboard') }}"
+                                >Admin Dashboard</a
+                            >
+                        </li>
+                        @endif @endauth
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#feedback">Feedback</a></li>
                         <li><a href="#contact">Contact</a></li>
-
-                        {{-- change the link if you are almost finish --}}
                         <li><a href="/login">Login</a></li>
-                        {{-- change the link if you are almost finish --}}
                         <li><a href="/signup">Sign Up</a></li>
+                        <li>
+                            {{-- Logout Button --}}
+                            <form
+                                method="POST"
+                                action="/logout"
+                                style="display: inline"
+                            >
+                                @csrf
+                                <button
+                                    type="submit"
+                                    style="
+                                        background: none;
+                                        border: none;
+                                        color: blue;
+                                        cursor: pointer;
+                                    "
+                                >
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -470,47 +488,46 @@
                             <a href="/signup">Create your account →</a>
                         </div>
                     </form>
-                    
-                    {{-- this is a error testing --}}
-                    @if ($errors->any())
-                        <div class="error">{{ $errors->first() }}</div>
-                    @endif
-                </section>
-            </main>
 
-            <footer id="contact" class="footer">
-                <div class="container">
-                    <div class="footer-content">
-                        <div class="footer-section">
-                            <h3>Contact Us</h3>
-                            <p>📍 123 Clean Street, Laundry District</p>
-                            <p>📞 (555) 123-WASH</p>
-                            <p>✉️ info@freshclean.com</p>
-                        </div>
-                        <div class="footer-section">
-                            <h3>Business Hours</h3>
-                            <p>Monday - Friday: 7:00 AM - 9:00 PM</p>
-                            <p>Saturday: 8:00 AM - 8:00 PM</p>
-                            <p>Sunday: 9:00 AM - 6:00 PM</p>
-                        </div>
-                        <div class="footer-section">
-                            <h3>Quick Links</h3>
-                            <p><a href="/#services">Our Services</a></p>
-                            <p><a href="/#pricing">Pricing</a></p>
-                            <p><a href="/#feedback">Leave Feedback</a></p>
-                            <p><a href="#">Terms of Service</a></p>
-                        </div>
-                    </div>
-                    <h3>Made by:</h3>
-                    <p>Rey M. Alas-as</p>
-                    <p>Jemien Infante Albios</p>
-                    <p>Ruffa Mae S. Sapan</p>
-                    <p>
-                        &copy; 2024 Fresh Clean Laundry Service. All rights
-                        reserved.
-                    </p>
+                    {{-- this is a error testing --}} @if ($errors->any())
+                    <div class="error">{{ $errors->first() }}</div>
+                    @endif
                 </div>
-            </footer>
-        </div>
-        </body>
+            </section>
+        </main>
+
+        <footer id="contact" class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <p>📍 123 Clean Street, Laundry District</p>
+                        <p>📞 (555) 123-WASH</p>
+                        <p>✉️ info@freshclean.com</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Business Hours</h3>
+                        <p>Monday - Friday: 7:00 AM - 9:00 PM</p>
+                        <p>Saturday: 8:00 AM - 8:00 PM</p>
+                        <p>Sunday: 9:00 AM - 6:00 PM</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <p><a href="/#services">Our Services</a></p>
+                        <p><a href="/#pricing">Pricing</a></p>
+                        <p><a href="/#feedback">Leave Feedback</a></p>
+                        <p><a href="#">Terms of Service</a></p>
+                    </div>
+                </div>
+                <h3>Made by:</h3>
+                <p>Rey M. Alas-as</p>
+                <p>Jemien Infante Albios</p>
+                <p>Ruffa Mae S. Sapan</p>
+                <p>
+                    &copy; 2024 Fresh Clean Laundry Service. All rights
+                    reserved.
+                </p>
+            </div>
+        </footer>
+    </body>
 </html>

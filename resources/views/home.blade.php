@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -107,7 +105,7 @@
                 transform: translateY(-2px);
                 box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
             }
-            
+
             /* Services Section */
             .services {
                 background: white;
@@ -138,7 +136,7 @@
                 color: white;
                 transition: transform 0.3s ease;
             }
-            
+
             .service-card:hover {
                 transform: translateY(-5px);
             }
@@ -190,7 +188,7 @@
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
                 border-color: #667eea;
             }
-            
+
             .pricing-card.featured {
                 border-color: #ff6b6b;
                 transform: scale(1.05);
@@ -252,7 +250,7 @@
                 transition: all 0.3s ease;
                 margin-bottom: 3rem;
             }
-            
+
             .simple-feedback-form:hover {
                 border-color: rgba(102, 126, 234, 0.3);
                 transform: translateY(-2px);
@@ -281,7 +279,7 @@
             .simple-form-group {
                 margin-bottom: 2rem;
             }
-            
+
             .simple-form-group label {
                 display: block;
                 margin-bottom: 0.8rem;
@@ -302,7 +300,7 @@
                 background: #f8f9fa;
                 font-family: inherit;
             }
-            
+
             .simple-form-group input:focus,
             .simple-form-group select:focus,
             .simple-form-group textarea:focus {
@@ -387,7 +385,7 @@
                 font-size: 1.4rem;
                 text-align: center;
             }
-            
+
             .simple-suggestion-box textarea {
                 background: rgba(255, 255, 255, 0.95);
                 border: none;
@@ -399,7 +397,7 @@
                 margin: 0 auto; /* Center horizontally */
                 display: block; /* Make it a block element so margin auto works */
             }
-            
+
             .simple-suggestion-box textarea:focus {
                 background: white;
                 box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
@@ -427,12 +425,12 @@
                 letter-spacing: 1px;
                 box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             }
-            
+
             .submit-btn:hover {
                 transform: translateY(-3px);
                 box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
             }
-            
+
             .submit-btn:active {
                 transform: translateY(-1px);
             }
@@ -448,7 +446,7 @@
                 margin-bottom: 2rem;
                 color: #333;
             }
-            
+
             .testimonial-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -518,7 +516,7 @@
                 margin-top: 2rem;
                 border-radius: 20px 20px 0 0;
             }
-            
+
             .footer-content {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -655,7 +653,6 @@
                 margin-top: 1rem;
                 display: none;
             }
-
         </style>
     </head>
     <body>
@@ -664,13 +661,13 @@
                 <nav class="nav">
                     <a href="#" class="logo">🧺 Fresh Clean</a>
                     <ul class="nav-links">
-                        @auth
-                            @if (auth()->user()->is_admin)
-                            <li>
-                                <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
-                            </li>    
-                            @endif
-                        @endauth
+                        @auth @if (auth()->user()->is_admin)
+                        <li>
+                            <a href="{{ route('admin.dashboard') }}"
+                                >Admin Dashboard</a
+                            >
+                        </li>
+                        @endif @endauth
                         <li><a href="#home">Home</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#pricing">Pricing</a></li>
@@ -680,9 +677,21 @@
                         <li><a href="/signup">Sign Up</a></li>
                         <li>
                             {{-- Logout Button --}}
-                            <form method="POST" action="/logout" style="display: inline;">
+                            <form
+                                method="POST"
+                                action="/logout"
+                                style="display: inline"
+                            >
                                 @csrf
-                                <button type="submit" style="background: none; border: none; color: blue; cursor: pointer;">
+                                <button
+                                    type="submit"
+                                    style="
+                                        background: none;
+                                        border: none;
+                                        color: blue;
+                                        cursor: pointer;
+                                    "
+                                >
                                     Logout
                                 </button>
                             </form>
@@ -690,7 +699,6 @@
                     </ul>
                 </nav>
             </div>
-            
         </header>
 
         <main class="container">
@@ -948,45 +956,41 @@
                         </button>
                     </form>
 
-                    {{-- this is a error testing --}}
-                    @if (session('success'))
-                        <div class="success">{{ session('success') }}</div>
-                    @endif
-
-                    {{-- this is code for displaying the feedback and suggestions --}}
+                    {{-- this is a error testing --}} @if (session('success'))
+                    <div class="success">{{ session('success') }}</div>
+                    @endif {{-- this is code for displaying the feedback and
+                    suggestions --}}
                     <div class="testimonial-grid">
                         @forelse ($feedbacks as $feedback)
-                            <div class="testimonial">
-                                <p class="testimonial-text">
-                                    {{ $feedback->feedback }}
-                                </p>
+                        <div class="testimonial">
+                            <p class="testimonial-text">
+                                {{ $feedback->feedback }}
+                            </p>
 
-                                @if (!empty($feedback->suggestions))
-                                    <p class="testimonial-suggestion">
-                                        💡 <strong>Suggestion:</strong> {{ $feedback->suggestions }}
+                            @if (!empty($feedback->suggestions))
+                            <p class="testimonial-suggestion">
+                                💡 <strong>Suggestion:</strong> {{
+                                $feedback->suggestions }}
+                            </p>
+                            @endif
+
+                            <div class="testimonial-footer">
+                                <div>
+                                    <p class="testimonial-author">
+                                        {{ $feedback->name }}
                                     </p>
-                                @endif
-
-                                <div class="testimonial-footer">
-                                    <div>
-                                        <p class="testimonial-author">
-                                            {{ $feedback->name }}
-                                        </p>
-                                        <p class="testimonial-service">
-                                            {{ ucfirst($feedback->service) }}
-                                        </p>
-                                    </div>
-                                    <div class="testimonial-rating">
-                                        {!! str_repeat('⭐', $feedback->rating) !!}
-                                    </div>
+                                    <p class="testimonial-service">
+                                        {{ ucfirst($feedback->service) }}
+                                    </p>
+                                </div>
+                                <div class="testimonial-rating">
+                                    {!! str_repeat('⭐', $feedback->rating) !!}
                                 </div>
                             </div>
-                        @empty
-                            <p>No feedback available yet.</p>
-                        @endforelse
-                    </div>
-
                         </div>
+                        @empty
+                        <p>No feedback available yet.</p>
+                        @endforelse
                     </div>
                 </div>
             </section>
@@ -1014,8 +1018,7 @@
                         <p><a href="/#feedback">Leave Feedback</a></p>
                         <p><a href="#">Terms of Service</a></p>
                     </div>
-
-                </div>                
+                </div>
                 <div class="footer-section">
                     <h3>Made by:</h3>
                     <p>Rey M. Alas-as</p>
