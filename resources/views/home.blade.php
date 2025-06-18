@@ -1,8 +1,3 @@
-@auth
-    @if (auth()->user()->is_admin)
-        <a href="{{ route('admin.feedback') }}">Admin Dashboard</a>
-    @endif
-@endauth
 
 
 <!DOCTYPE html>
@@ -112,7 +107,7 @@
                 transform: translateY(-2px);
                 box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
             }
-
+            
             /* Services Section */
             .services {
                 background: white;
@@ -143,7 +138,7 @@
                 color: white;
                 transition: transform 0.3s ease;
             }
-
+            
             .service-card:hover {
                 transform: translateY(-5px);
             }
@@ -195,7 +190,7 @@
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
                 border-color: #667eea;
             }
-
+            
             .pricing-card.featured {
                 border-color: #ff6b6b;
                 transform: scale(1.05);
@@ -257,7 +252,7 @@
                 transition: all 0.3s ease;
                 margin-bottom: 3rem;
             }
-
+            
             .simple-feedback-form:hover {
                 border-color: rgba(102, 126, 234, 0.3);
                 transform: translateY(-2px);
@@ -286,7 +281,7 @@
             .simple-form-group {
                 margin-bottom: 2rem;
             }
-
+            
             .simple-form-group label {
                 display: block;
                 margin-bottom: 0.8rem;
@@ -307,7 +302,7 @@
                 background: #f8f9fa;
                 font-family: inherit;
             }
-
+            
             .simple-form-group input:focus,
             .simple-form-group select:focus,
             .simple-form-group textarea:focus {
@@ -392,7 +387,7 @@
                 font-size: 1.4rem;
                 text-align: center;
             }
-
+            
             .simple-suggestion-box textarea {
                 background: rgba(255, 255, 255, 0.95);
                 border: none;
@@ -404,7 +399,7 @@
                 margin: 0 auto; /* Center horizontally */
                 display: block; /* Make it a block element so margin auto works */
             }
-
+            
             .simple-suggestion-box textarea:focus {
                 background: white;
                 box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
@@ -432,12 +427,12 @@
                 letter-spacing: 1px;
                 box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             }
-
+            
             .submit-btn:hover {
                 transform: translateY(-3px);
                 box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
             }
-
+            
             .submit-btn:active {
                 transform: translateY(-1px);
             }
@@ -453,7 +448,7 @@
                 margin-bottom: 2rem;
                 color: #333;
             }
-
+            
             .testimonial-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -523,7 +518,7 @@
                 margin-top: 2rem;
                 border-radius: 20px 20px 0 0;
             }
-
+            
             .footer-content {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -669,7 +664,14 @@
                 <nav class="nav">
                     <a href="#" class="logo">🧺 Fresh Clean</a>
                     <ul class="nav-links">
-                        <li><a href="#home">Dashboard</a></li>
+                        @auth
+                            @if (auth()->user()->is_admin)
+                            <li>
+                                <a href="{{ route('admin.feedback') }}">Admin Dashboard</a>
+                            </li>    
+                            @endif
+                        @endauth
+                        <li><a href="#home">Home</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#feedback">Feedback</a></li>
