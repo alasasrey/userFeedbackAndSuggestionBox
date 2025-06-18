@@ -489,7 +489,8 @@
                         </div>
                     </form>
 
-                    {{-- this is a error testing --}} @if ($errors->any())
+                    {{-- this is a error testing --}} 
+                    @if ($errors->any())
                     <div class="error">{{ $errors->first() }}</div>
                     @endif
                 </div>
