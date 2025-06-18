@@ -438,7 +438,7 @@
                     <form
                         class="auth-form"
                         method="POST"
-                        action="{{ url('/signup') }}"
+                        action="/signup"
                     >
                         @csrf
                         <div class="auth-header">

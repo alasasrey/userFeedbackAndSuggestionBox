@@ -772,7 +772,7 @@
                     <form
                         class="simple-feedback-form"
                         method="POST"
-                        action="{{ url('/submit-feedback') }}"
+                        action="/feedback"
                     >
                         @csrf
                         <div class="form-header">
