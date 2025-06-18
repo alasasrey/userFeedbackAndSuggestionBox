@@ -1,16 +1,3 @@
-{{-- to check if the session works or not --}}
-@if (session('success'))
-    <div>{{ session('success') }}</div>
-@endif
-
-@if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-@endif 
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -483,6 +470,11 @@
                             <a href="/signup">Create your account →</a>
                         </div>
                     </form>
+                    
+                    {{-- this is a error testing --}}
+                    @if ($errors->any())
+                        <div class="error">{{ $errors->first() }}</div>
+                    @endif
                 </section>
             </main>
 

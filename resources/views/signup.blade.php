@@ -424,17 +424,7 @@
         <main class="container">
             <section id="signup" class="auth-section">
                 <div class="auth-container">
-                    {{-- this is a error testing --}}
-                    @if ($errors->any())
-                    <div>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-
+                    
                     <form
                         class="auth-form"
                         method="POST"
@@ -451,10 +441,10 @@
                         <div class="auth-form-group">
                             <label for="signup-name">Your Full Name</label>
                             <input
-                                type="text"
-                                id="signup-name"
-                                name="name"
-                                required
+                            type="text"
+                            id="signup-name"
+                            name="name"
+                            required
                             />
                         </div>
 
@@ -467,7 +457,7 @@
                                 required
                             />
                         </div>
-
+                        
                         <div class="auth-form-group">
                             <label for="signup-password">Password</label>
                             <input
@@ -482,7 +472,7 @@
                                 character.
                             </div>
                         </div>
-
+                        
                         <div class="auth-form-group">
                             <label for="password-confirmation"
                                 >Confirm Password</label
@@ -495,13 +485,13 @@
                                 id="password-confirmation"
                                 name="password_confirmation"
                                 required
-                            />
+                                />
                         </div>
-
+                        
                         <button type="submit" class="auth-button">
                             Create Account
                         </button>
-
+                        
                         <div class="auth-switch">
                             <p>Already have an account?</p>
 
@@ -509,6 +499,10 @@
                             <a href="/login">Log in here →</a>
                         </div>
                     </form>
+                    {{-- this is a error testing --}}
+                    @if ($errors->any())
+                        <div class="error">{{ $errors->first() }}</div>
+                    @endif
                 </div>
             </section>
         </main>

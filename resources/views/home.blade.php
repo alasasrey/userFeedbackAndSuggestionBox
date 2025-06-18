@@ -926,6 +926,11 @@
                         </button>
                     </form>
 
+                    {{-- this is a error testing --}}
+                    @if (session('success'))
+                        <div class="success">{{ session('success') }}</div>
+                    @endif
+
                     <div class="testimonials">
                         <h3>What Our Customers Say</h3>
                         <div class="testimonial-grid">
