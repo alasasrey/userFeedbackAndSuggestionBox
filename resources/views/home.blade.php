@@ -653,6 +653,7 @@
                 margin-top: 1rem;
                 display: none;
             }
+
         </style>
     </head>
     <body>
@@ -943,140 +944,39 @@
                         <div class="success">{{ session('success') }}</div>
                     @endif
 
-                    <div class="testimonials">
-                        <h3>What Our Customers Say</h3>
-                        <div class="testimonial-grid">
+                    {{-- this is code for displaying the feedback and suggestions --}}
+                    <div class="testimonial-grid">
+                        @forelse ($feedbacks as $feedback)
                             <div class="testimonial">
                                 <p class="testimonial-text">
-                                    Exceptional service! My clothes always come
-                                    back perfectly clean and beautifully folded.
-                                    The pickup and delivery is so convenient,
-                                    and the staff is incredibly professional.
+                                    {{ $feedback->feedback }}
                                 </p>
-                                <div class="testimonial-footer">
-                                    <div>
-                                        <p class="testimonial-author">
-                                            Sarah Johnson
-                                        </p>
-                                        <p class="testimonial-service">
-                                            Premium Care Service
-                                        </p>
-                                    </div>
-                                    <div class="testimonial-rating">
-                                        ⭐⭐⭐⭐⭐
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="testimonial">
-                                <p class="testimonial-text">
-                                    I've been using Fresh Clean for 2 years now.
-                                    Their dry cleaning service is top-notch, and
-                                    they handle my business suits with such
-                                    care. Highly recommend!
-                                </p>
-                                <div class="testimonial-footer">
-                                    <div>
-                                        <p class="testimonial-author">
-                                            Michael Chen
-                                        </p>
-                                        <p class="testimonial-service">
-                                            Dry Cleaning
-                                        </p>
-                                    </div>
-                                    <div class="testimonial-rating">
-                                        ⭐⭐⭐⭐⭐
-                                    </div>
-                                </div>
-                            </div>
+                                @if (!empty($feedback->suggestions))
+                                    <p class="testimonial-suggestion">
+                                        💡 <strong>Suggestion:</strong> {{ $feedback->suggestions }}
+                                    </p>
+                                @endif
 
-                            <div class="testimonial">
-                                <p class="testimonial-text">
-                                    Great value for money! The premium care
-                                    package is worth every penny. My business
-                                    shirts look brand new every time, and I love
-                                    the neat packaging.
-                                </p>
                                 <div class="testimonial-footer">
                                     <div>
                                         <p class="testimonial-author">
-                                            Emma Davis
+                                            {{ $feedback->name }}
                                         </p>
                                         <p class="testimonial-service">
-                                            Wash & Fold
+                                            {{ ucfirst($feedback->service) }}
                                         </p>
                                     </div>
                                     <div class="testimonial-rating">
-                                        ⭐⭐⭐⭐⭐
+                                        {!! str_repeat('⭐', $feedback->rating) !!}
                                     </div>
                                 </div>
                             </div>
+                        @empty
+                            <p>No feedback available yet.</p>
+                        @endforelse
+                    </div>
 
-                            <div class="testimonial">
-                                <p class="testimonial-text">
-                                    Fresh Clean saved my wedding dress! I
-                                    thought it was ruined after a small
-                                    accident, but their garment care specialists
-                                    worked magic. Amazing attention to detail!
-                                </p>
-                                <div class="testimonial-footer">
-                                    <div>
-                                        <p class="testimonial-author">
-                                            Jessica Martinez
-                                        </p>
-                                        <p class="testimonial-service">
-                                            Garment Care
-                                        </p>
-                                    </div>
-                                    <div class="testimonial-rating">
-                                        ⭐⭐⭐⭐⭐
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="testimonial">
-                                <p class="testimonial-text">
-                                    The convenience factor is unbeatable. With
-                                    my busy work schedule, having them pick up
-                                    and deliver my laundry is a lifesaver. Plus,
-                                    everything always comes back fresh!
-                                </p>
-                                <div class="testimonial-footer">
-                                    <div>
-                                        <p class="testimonial-author">
-                                            David Thompson
-                                        </p>
-                                        <p class="testimonial-service">
-                                            Dashboard Pickup
-                                        </p>
-                                    </div>
-                                    <div class="testimonial-rating">
-                                        ⭐⭐⭐⭐⭐
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="testimonial">
-                                <p class="testimonial-text">
-                                    I was skeptical about using a laundry
-                                    service at first, but Fresh Clean exceeded
-                                    all my expectations. The quality is
-                                    consistently excellent and prices are fair.
-                                </p>
-                                <div class="testimonial-footer">
-                                    <div>
-                                        <p class="testimonial-author">
-                                            Amanda Wilson
-                                        </p>
-                                        <p class="testimonial-service">
-                                            Multiple Services
-                                        </p>
-                                    </div>
-                                    <div class="testimonial-rating">
-                                        ⭐⭐⭐⭐⭐
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
