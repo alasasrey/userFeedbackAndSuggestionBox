@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FeedbackController;
 use App\Models\Feedback;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
     return view('login');
@@ -23,3 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/feedback', [FeedbackController::class, 'store']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+
+
+
+
