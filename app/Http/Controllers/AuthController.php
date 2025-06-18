@@ -13,6 +13,11 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function showSignup()
+    {
+        return view('signup');
+    }
+
     public function register(Request $request)
     {
         $request->validate([
