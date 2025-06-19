@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('name');
-            $table->string('email');
-            $table->string('service');
-            $table->unsignedTinyInteger('rating');
+            $table->unsignedBigInteger('service_id');
+            $table->tinyInteger('rating');
             $table->text('feedback');
-            $table->text('suggestions')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
         });
     }
 
