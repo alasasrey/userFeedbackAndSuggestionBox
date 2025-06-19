@@ -14,7 +14,13 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         //use this seeder to create the admin user and access the admin dashboard
-        //write this in your cmd "php artisan db:seed AdminUserSeeder" to add the admin user to the database
+        /*write this in your cmd "php artisan db:seed AdminUserSeeder" 
+        to add the admin user to the database
+        */
+        /*after you login your admin user, 
+        in the home you will see on the nav bar name Admin Dashboard
+        click it to access the admin dashboard
+        */  
         User::create([
             'name' => 'Admin User',
             //this is your admin email change it if you want

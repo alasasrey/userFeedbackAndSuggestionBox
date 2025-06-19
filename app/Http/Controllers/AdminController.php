@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Feedback;
 use App\Models\Suggestion;
+use App\Models\Service;
 
 class AdminController extends Controller
 {
@@ -20,6 +21,19 @@ class AdminController extends Controller
 
         return view('admin.feedback', compact('feedbacks', 'suggestions'));
     }
+
+    public function services()
+    {
+        $services = Service::all();
+        return view('admin.services', compact('services'));
+    }
+
+    public function suggestions()
+    {
+        $suggestions = Suggestion::with('user')->latest()->get();
+        return view('admin.suggestions', compact('suggestions'));
+    }
+
 
     // View edit form
     public function editFeedback($id)
@@ -54,5 +68,7 @@ class AdminController extends Controller
 
         return redirect()->route('admin.feedback')->with('success', 'Feedback deleted successfully.');
     }
+
+
 
 }
