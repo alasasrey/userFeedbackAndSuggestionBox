@@ -1022,7 +1022,7 @@
                 <div class="footer-section">
                     <h3>Made by:</h3>
                     <p>Rey M. Alas-as</p>
-                    <p>Jemien Infante Albios</p>
+                    <p>Jemlen Infante Albios</p>
                     <p>Ruffa Mae S. Sapan</p>
                     <p>
                         &copy; 2024 Fresh Clean Laundry Service. All rights
