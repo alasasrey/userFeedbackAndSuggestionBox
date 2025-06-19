@@ -956,9 +956,7 @@
                         </button>
                     </form>
 
-                    {{-- this is a error testing --}} @if (session('success'))
-                    <div class="success">{{ session('success') }}</div>
-                    @endif {{-- this is code for displaying the feedback and
+                    {{-- this is code for displaying the feedback and
                     suggestions --}}
                     <div class="testimonial-grid">
                         @forelse ($feedbacks as $feedback)
@@ -967,20 +965,20 @@
                                 {{ $feedback->feedback }}
                             </p>
 
-                            @if (!empty($feedback->suggestions))
+                            @if (!empty($feedback->suggestion->suggestion))
                             <p class="testimonial-suggestion">
                                 💡 <strong>Suggestion:</strong> {{
-                                $feedback->suggestions }}
+                                $feedback->suggestion->suggestion }}
                             </p>
                             @endif
 
                             <div class="testimonial-footer">
                                 <div>
                                     <p class="testimonial-author">
-                                        {{ $feedback->name }}
+                                        {{ $feedback->user->name ?? 'Anonymous' }}
                                     </p>
                                     <p class="testimonial-service">
-                                        {{ ucfirst($feedback->service) }}
+                                        {{ ucfirst($feedback->service->service ?? 'No Service') }}
                                     </p>
                                 </div>
                                 <div class="testimonial-rating">

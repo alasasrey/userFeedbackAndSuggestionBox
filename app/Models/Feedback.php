@@ -6,13 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feedback extends Model
 {
+    protected $table = 'feedback';
+
     protected $fillable = [
         'user_id',
-        'name',
-        'email',
-        'service',
+        'service_id',
+        'suggestion_id',
         'rating',
         'feedback',
-        'suggestions',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+
+    public function suggestion()
+    {
+        return $this->belongsTo(Suggestion::class);
+    }
 }

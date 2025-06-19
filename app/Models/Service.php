@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Suggestion extends Model
+class Service extends Model
 {
-    protected $table = 'suggestions';
-
+    protected $table = 'services';
 
     protected $fillable = [
-        'user_id', 'suggestion',
+        'user_id', 'service', 
     ];
 
     public function user()
