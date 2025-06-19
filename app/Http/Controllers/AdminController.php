@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Feedback;
+use App\Models\Suggestion;
 
 class AdminController extends Controller
 {
@@ -12,11 +13,12 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-
     public function feedback()
     {
-        $feedbacks = Feedback::latest()->get();
-        return view('admin.feedback', compact('feedbacks'));
+        $feedbacks = Feedback::with('service', 'user')->get();
+        $suggestions = Suggestion::with('user')->get();
+
+        return view('admin.feedback', compact('feedbacks', 'suggestions'));
     }
 
     // View edit form
