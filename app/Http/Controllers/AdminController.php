@@ -7,6 +7,8 @@ use App\Models\Feedback;
 use App\Models\Suggestion;
 use App\Models\Service;
 
+
+
 class AdminController extends Controller
 {
     public function dashboard()
@@ -35,14 +37,13 @@ class AdminController extends Controller
     }
 
 
-    // View edit form
+    //feedback
     public function editFeedback($id)
     {
         $feedback = Feedback::findOrFail($id);
         return view('admin.editFeedback', compact('feedback'));
     }
 
-    // Handle update
     public function updateFeedback(Request $request, $id)
     {
         $request->validate([
@@ -60,7 +61,6 @@ class AdminController extends Controller
         return redirect()->route('admin.feedback')->with('success', 'Feedback updated successfully.');
     }
 
-    // Delete
     public function deleteFeedback($id)
     {
         $feedback = Feedback::findOrFail($id);
@@ -69,6 +69,35 @@ class AdminController extends Controller
         return redirect()->route('admin.feedback')->with('success', 'Feedback deleted successfully.');
     }
 
+    //services
+    public function editService($id)
+    {
+        $service = Service::findOrFail($id);
+        return view('admin.editService', compact('service'));
+    }
 
+    public function updateService(Request $request, $id)
+    {
+        $service = Service::findOrFail($id);
+        $request->validate([
+            'service' => 'required|string|max:255',
+        ]);
+        $service->update(['service' => $request->service]);
+        return redirect()->route('admin.services')->with('success', 'Service updated successfully.');
+    }
 
+    public function deleteService($id)
+    {
+        $service = Service::findOrFail($id);
+        $service->delete();
+        return back()->with('success', 'Service deleted.');
+    }
+
+    //suggestions
+    public function deleteSuggestion($id)
+    {
+        $suggestion = Suggestion::findOrFail($id);
+        $suggestion->delete();
+        return back()->with('success', 'Suggestion deleted.');
+    }
 }
