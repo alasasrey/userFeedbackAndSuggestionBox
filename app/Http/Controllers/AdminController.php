@@ -24,6 +24,7 @@ class AdminController extends Controller
 
     public function edit($id)
     {
+
         $feedbacks = Feedback::with(['user', 'service', 'suggestion'])->findOrFail($id);
         $services = Service::all();
         $suggestions = Suggestion::with('user')->get();

@@ -23,10 +23,32 @@
         <div class="mb-3">
             <label>Service</label>
             <select name="service_id" class="form-control" required>
-                @foreach ($services as $service)
+                {{-- @foreach ($services as $service)
                     <option value="{{ $service->id }}" {{ $feedbacks->service_id == $service->id ? 'selected' : '' }}>
                         {{ ucfirst($service->service) }}
                     </option>
+                @endforeach  --}}
+
+                @php
+                    $allowedServices = [
+                        'wash-fold',
+                        'dry-cleaning',
+                        'garment-care',
+                        'pickup-delivery',
+                        'multiple'
+                    ];
+                @endphp
+
+                @foreach ($allowedServices as $label)
+                    @php
+                        $matchedService = $services->firstWhere('service', $label);
+                    @endphp
+
+                    @if($matchedService)
+                        <option value="{{ $matchedService->id }}" {{ $feedbacks->service_id == $matchedService->id ? 'selected' : '' }}>
+                            {{ $label }}
+                        </option>
+                    @endif
                 @endforeach
             </select>
         </div>
