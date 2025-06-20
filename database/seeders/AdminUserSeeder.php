@@ -26,7 +26,7 @@ class AdminUserSeeder extends Seeder
             //this is your admin email change it if you want
             'email' => 'admin@admin',
             //this is your admin password change it if you want
-            'password' => bcrypt('adminpassword'),
+            'password' => bcrypt('admin_123'),
             'is_admin' => true,
         ]);
 

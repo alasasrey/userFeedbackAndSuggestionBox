@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Feedback;
 use App\Models\Suggestion;
 use App\Models\Service;
+use App\Models\User;
 
 
 
@@ -13,91 +14,73 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard');
-    }
-
-    public function feedback()
-    {
-        $feedbacks = Feedback::with('service', 'user')->get();
+        $users = User::all();
+        $feedbacks = Feedback::with(['user', 'service', 'suggestion'])->get();
+        $services = Service::all();
         $suggestions = Suggestion::with('user')->get();
 
-        return view('admin.feedback', compact('feedbacks', 'suggestions'));
+        return view('admin.dashboard', compact('users', 'feedbacks', 'services', 'suggestions'));
     }
 
-    public function services()
+    public function edit($id)
     {
+        $feedbacks = Feedback::with(['user', 'service', 'suggestion'])->findOrFail($id);
         $services = Service::all();
-        return view('admin.services', compact('services'));
+        $suggestions = Suggestion::with('user')->get();
+
+        return view('admin.editDashboard', compact('feedbacks', 'services', 'suggestions'));
     }
 
-    public function suggestions()
+    public function update(Request $request, $id)
     {
-        $suggestions = Suggestion::with('user')->latest()->get();
-        return view('admin.suggestions', compact('suggestions'));
-    }
+        $feedback = Feedback::with(['suggestion', 'user'])->findOrFail($id);
 
-
-    //feedback
-    public function editFeedback($id)
-    {
-        $feedback = Feedback::findOrFail($id);
-        return view('admin.editFeedback', compact('feedback'));
-    }
-
-    public function updateFeedback(Request $request, $id)
-    {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'service' => 'required|string',
-            'rating' => 'required|integer|min:1|max:5',
-            'feedback' => 'required|string',
-            'suggestions' => 'nullable|string',
+            'service_id' => 'required|exists:services,id',
+            'rating'     => 'required|integer|min:1|max:5',
+            'feedback'   => 'required|string',
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email',
+            'suggestion' => 'nullable|string',
         ]);
 
-        $feedback = Feedback::findOrFail($id);
-        $feedback->update($request->all());
+        //Update feedback & service
+        $feedback->update([
+            'rating'     => $request->rating,
+            'feedback'   => $request->feedback,
+            'service_id' => $request->service_id,
+        ]);
 
-        return redirect()->route('admin.feedback')->with('success', 'Feedback updated successfully.');
+        //Update the suggestion text or create one if missing
+        if ($feedback->suggestion) {
+            $feedback->suggestion->update([
+                'suggestion' => $request->suggestion
+            ]);
+        } elseif ($request->filled('suggestion')) {
+            $feedback->suggestion()->create([
+                'user_id'    => $feedback->user_id,
+                'suggestion' => $request->suggestion,
+            ]);
+        }
+
+        //Update the user profile fields (name/email)
+        if ($feedback->user) {
+            $feedback->user->update([
+                'name'  => $request->name,
+                'email' => $request->email,
+            ]);
+        }
+
+        return redirect()->route('admin.dashboard')
+            ->with('success', 'Feedback (and its service, suggestion, user details) updated successfully!');
     }
 
-    public function deleteFeedback($id)
+
+    public function delete($id)
     {
         $feedback = Feedback::findOrFail($id);
         $feedback->delete();
 
-        return redirect()->route('admin.feedback')->with('success', 'Feedback deleted successfully.');
-    }
-
-    //services
-    public function editService($id)
-    {
-        $service = Service::findOrFail($id);
-        return view('admin.editService', compact('service'));
-    }
-
-    public function updateService(Request $request, $id)
-    {
-        $service = Service::findOrFail($id);
-        $request->validate([
-            'service' => 'required|string|max:255',
-        ]);
-        $service->update(['service' => $request->service]);
-        return redirect()->route('admin.services')->with('success', 'Service updated successfully.');
-    }
-
-    public function deleteService($id)
-    {
-        $service = Service::findOrFail($id);
-        $service->delete();
-        return back()->with('success', 'Service deleted.');
-    }
-
-    //suggestions
-    public function deleteSuggestion($id)
-    {
-        $suggestion = Suggestion::findOrFail($id);
-        $suggestion->delete();
-        return back()->with('success', 'Suggestion deleted.');
+        return redirect()->route('admin.dashboard')->with('success', 'Feedback deleted successfully.');
     }
 }

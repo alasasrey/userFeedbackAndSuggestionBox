@@ -100,8 +100,7 @@
     <header>
         <h1>Admin Panel</h1>
         <nav>
-            <a href="{{ url('/admin') }}" class="btn">Dashboard</a> |
-            <a href="{{ route('admin.feedback') }}" class="btn">Feedback</a> |
+            <a href="{{ url('/admin') }}" class="btn">Dashboard</a>|
             <form method="POST" action="/logout" style="display:inline;">
                 @csrf
                 <button type="submit" class="btn">Logout</button>

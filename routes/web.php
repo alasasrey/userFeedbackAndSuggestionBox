@@ -26,30 +26,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-
-Route::middleware([AdminMiddleware::class])->group(function () {
-    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-});
-
+//TODO: FIX THE ADMIN DASHBOARD!!!!!
 Route::middleware([
     \Illuminate\Auth\Middleware\Authenticate::class,
     AdminMiddleware::class,
-])->group(function () {
-    //Feedback
-    Route::get('/admin/feedback', [AdminController::class, 'feedback'])->name('admin.feedback');
-    Route::get('/admin/feedback/{id}/edit', [AdminController::class, 'editFeedback'])->name('admin.feedback.edit');
-    Route::put('/admin/feedback/{id}', [AdminController::class, 'updateFeedback'])->name('admin.feedback.update');
-    Route::delete('/admin/feedback/{id}', [AdminController::class, 'deleteFeedback'])->name('admin.feedback.delete');
-
-    
-    //Services
-    Route::get('/admin/services', [AdminController::class, 'services'])->name('admin.services');
-    Route::get('/admin/services/{id}/edit', [AdminController::class, 'editService'])->name('admin.services.edit');
-    Route::put('/admin/services/{id}', [AdminController::class, 'updateService'])->name('admin.services.update');
-    Route::delete('/admin/services/{id}', [AdminController::class, 'deleteService'])->name('admin.services.delete');
-    
-    //Suggestions delete only for now
-    Route::get('/admin/suggestions', [AdminController::class, 'suggestions'])->name('admin.suggestions');
-    Route::delete('/admin/suggestions/{id}', [AdminController::class, 'deleteSuggestion'])->name('admin.suggestions.delete');
-
+    ])->group(function () {
+    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/dashboard/{id}/edit', [AdminController::class, 'edit'])->name('admin.dashboard.edit');
+    Route::put('/admin/dashboard/{id}', [AdminController::class, 'update'])->name('admin.dashboard.update');
+    Route::delete('/admin/dashboard/{id}', [AdminController::class, 'delete'])->name('admin.dashboard.delete');
 });
+
